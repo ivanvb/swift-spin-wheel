@@ -13,6 +13,8 @@
 		FE0783212801304200B59723 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE0783202801304200B59723 /* Preview Assets.xcassets */; };
 		FE07832B2801315D00B59723 /* WheelGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE07832A2801315D00B59723 /* WheelGame.swift */; };
 		FE07832D2801407300B59723 /* WheelGameVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE07832C2801407300B59723 /* WheelGameVM.swift */; };
+		FE07832F28015D0E00B59723 /* GameWheel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE07832E28015D0E00B59723 /* GameWheel.swift */; };
+		FE07833228015E1500B59723 /* WheelSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE07833128015E1500B59723 /* WheelSegment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		FE0783202801304200B59723 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FE07832A2801315D00B59723 /* WheelGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheelGame.swift; sourceTree = "<group>"; };
 		FE07832C2801407300B59723 /* WheelGameVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheelGameVM.swift; sourceTree = "<group>"; };
+		FE07832E28015D0E00B59723 /* GameWheel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWheel.swift; sourceTree = "<group>"; };
+		FE07833128015E1500B59723 /* WheelSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheelSegment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +80,9 @@
 		FE078327280130F700B59723 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FE07833028015E0200B59723 /* Shapes */,
 				FE07831B2801303F00B59723 /* WheelGameView.swift */,
+				FE07832E28015D0E00B59723 /* GameWheel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -95,6 +101,14 @@
 				FE07832C2801407300B59723 /* WheelGameVM.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		FE07833028015E0200B59723 /* Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				FE07833128015E1500B59723 /* WheelSegment.swift */,
+			);
+			path = Shapes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,7 +184,9 @@
 				FE07831C2801303F00B59723 /* WheelGameView.swift in Sources */,
 				FE07832B2801315D00B59723 /* WheelGame.swift in Sources */,
 				FE07832D2801407300B59723 /* WheelGameVM.swift in Sources */,
+				FE07832F28015D0E00B59723 /* GameWheel.swift in Sources */,
 				FE07831A2801303F00B59723 /* WheelGameApp.swift in Sources */,
+				FE07833228015E1500B59723 /* WheelSegment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
