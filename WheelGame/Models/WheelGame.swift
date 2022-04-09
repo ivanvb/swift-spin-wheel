@@ -17,13 +17,13 @@ struct WheelGame{
         self.losingNumbers = losingNumbers.count > 0 ? losingNumbers : [1]
     }
     
-    func spinWheel() -> Int {
+    mutating func spinWheel() -> Int {
         let result = Int.random(in: (1...totalNumbers))
-        
+        updateScore(result)
         return result
     }
     
-    private mutating func updateScore(result: Int){
+    private mutating func updateScore(_ result: Int){
         if(losingNumbers.contains(result)){
             score = 0
         } else {
