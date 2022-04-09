@@ -11,6 +11,7 @@
 		FE07831C2801303F00B59723 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE07831B2801303F00B59723 /* ContentView.swift */; };
 		FE07831E2801304200B59723 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE07831D2801304200B59723 /* Assets.xcassets */; };
 		FE0783212801304200B59723 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE0783202801304200B59723 /* Preview Assets.xcassets */; };
+		FE07832B2801315D00B59723 /* WheelGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE07832A2801315D00B59723 /* WheelGame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		FE07831B2801303F00B59723 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FE07831D2801304200B59723 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FE0783202801304200B59723 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		FE07832A2801315D00B59723 /* WheelGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheelGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +53,10 @@
 		FE0783182801303F00B59723 /* WheelGame */ = {
 			isa = PBXGroup;
 			children = (
+				FE0783292801310100B59723 /* ViewModels */,
+				FE078328280130FC00B59723 /* Models */,
+				FE078327280130F700B59723 /* Views */,
 				FE0783192801303F00B59723 /* WheelGameApp.swift */,
-				FE07831B2801303F00B59723 /* ContentView.swift */,
 				FE07831D2801304200B59723 /* Assets.xcassets */,
 				FE07831F2801304200B59723 /* Preview Content */,
 			);
@@ -65,6 +69,29 @@
 				FE0783202801304200B59723 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		FE078327280130F700B59723 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FE07831B2801303F00B59723 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FE078328280130FC00B59723 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FE07832A2801315D00B59723 /* WheelGame.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FE0783292801310100B59723 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE07831C2801303F00B59723 /* ContentView.swift in Sources */,
+				FE07832B2801315D00B59723 /* WheelGame.swift in Sources */,
 				FE07831A2801303F00B59723 /* WheelGameApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
