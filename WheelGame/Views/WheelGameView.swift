@@ -6,10 +6,11 @@ struct WheelGameView: View {
     @State var animating = false
 
     private struct Constants {
-        static let duration: CGFloat = 0.5
+        static let spinDuration: CGFloat = 1.5
+        static let disabledButtonOpacity: CGFloat = 0.5
         
         static let minRotationLaps: Int = 3
-        static let maxRotationLaps: Int = 12
+        static let maxRotationLaps: Int = 8
         static let wheelOffsetPercentage: Double = 5 / 100
         
         static let wheelSize: CGFloat = 250
@@ -48,7 +49,7 @@ struct WheelGameView: View {
                                 .padding(.bottom, Constants.spinButtonTextOffset)
                                 .foregroundColor(.white)
                             
-                        }
+                        }.opacity(animating ? Constants.disabledButtonOpacity : 1)
                     }
                     .disabled(animating)
                 }
@@ -68,7 +69,6 @@ struct WheelGameView: View {
     func calculateSpinAgle(selectedNumber: Int){
         let sliceSize: Double = 360 / Double(game.totalNumbers)
         let centerAngle: Double = (sliceSize * Double(selectedNumber - 1)).truncatingRemainder(dividingBy: 360);
-        print(sliceSize, centerAngle)
         
         let minOffset: Double = (centerAngle - sliceSize / 2) * (1 + Constants.wheelOffsetPercentage)
         let maxOffset: Double = (centerAngle + sliceSize / 2) * (1 - Constants.wheelOffsetPercentage)
@@ -79,9 +79,10 @@ struct WheelGameView: View {
         let wheelSpinning = 360 * Double(totalSpins)
         let finalAngle: Double = wheelSpinning + offset
 
-        withAnimation(Animation.easeOut(duration: Constants.duration)){
+        withAnimation(Animation.easeOut(duration: Constants.spinDuration)){
             angle = finalAngle
-            DispatchQueue.main.asyncAfter(deadline: .now() + Constants.duration) {
+            animating = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + Constants.spinDuration) {
                         animating = false
                         angle = finalAngle - wheelSpinning
             }
