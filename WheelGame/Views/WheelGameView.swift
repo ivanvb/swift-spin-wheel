@@ -4,7 +4,7 @@ struct WheelGameView: View {
     @ObservedObject var game: WheelGameVM
     @State var angle: Double = 0
     @State var animating = false
-
+    
     private struct Constants {
         static let spinDuration: CGFloat = 1.5
         static let disabledButtonOpacity: CGFloat = 0.5
@@ -25,6 +25,13 @@ struct WheelGameView: View {
         return Double(360 / Double(game.totalNumbers))
     }
     
+    private func computeRemaining(number: Int) -> Int{
+        let result = round(Double(Int(number) % 360) / (360 / Double(game.totalNumbers) ))
+        let clampedResult = max(Int((result + 1)) % (game.totalNumbers + 1), 1)
+        
+        return clampedResult
+    }
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .bottom){
@@ -32,6 +39,8 @@ struct WheelGameView: View {
                     Text("Score: \(game.score)")
                     Text("Result: \(game.currentNumber)")
                     Text("Lost: \(game.hasLost ? "Lost" : "Not lost")")
+                    NumberIncreaseText(number: angle, processingFunction: computeRemaining)
+                        .font(.system(size: 104, weight: .bold, design: .default))
                     Spacer()
                 }.frame(width: geometry.size.width)
                 
@@ -75,18 +84,39 @@ struct WheelGameView: View {
         
         let totalSpins = Int.random(in: (Constants.minRotationLaps...Constants.maxRotationLaps));
         let offset = Double.random(in: (minOffset...maxOffset));
-            
+        
         let wheelSpinning = 360 * Double(totalSpins)
         let finalAngle: Double = wheelSpinning + offset
-
+        
         withAnimation(Animation.easeOut(duration: Constants.spinDuration)){
             angle = finalAngle
             animating = true
             DispatchQueue.main.asyncAfter(deadline: .now() + Constants.spinDuration) {
-                        animating = false
-                        angle = finalAngle - wheelSpinning
+                animating = false
+                angle = finalAngle - wheelSpinning
             }
         }
+    }
+}
+
+struct NumberIncreaseText: View, Animatable{
+    var number: Double
+    var processingFunction: ((Int) -> Int)?
+    
+    var animatableData: Double {
+        get { number }
+        set { number = newValue }
+    }
+    
+    var calculatedNumber: Int {
+        if (processingFunction != nil) {
+            return processingFunction!(Int(animatableData))
+        } else {
+            return Int(animatableData)
+        }
+    }
+    var body: some View {
+        Text("\(calculatedNumber)")
     }
 }
 
@@ -96,3 +126,4 @@ struct WheelGameView_Previews: PreviewProvider {
         WheelGameView(game: game)
     }
 }
+
