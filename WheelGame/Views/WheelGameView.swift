@@ -44,8 +44,12 @@ struct WheelGameView: View {
         GeometryReader { geometry in
             ZStack(alignment: .bottom){
                 VStack{
-                    NumberIncreaseText(prependText: "Score: " ,number: Double(score))
-                    Text("Lost: \(game.hasLost ? "Lost" : "Not lost")")
+                    HStack{
+                        NumberIncreaseText(prependText: "Score: " ,number: Double(score))
+                            .font(Font.title2)
+                        Spacer()
+                    }.padding(.leading)
+                    Spacer()
                     NumberIncreaseText(number: angle, processingFunction: computeRemaining)
                         .font(.system(size: 104, weight: .bold, design: .default))
                     Spacer()
