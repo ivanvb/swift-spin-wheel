@@ -28,8 +28,17 @@ class WheelGameVM: ObservableObject{
         return model.totalNumbers
     }
     
+    var highScore: Int {
+        return model.highScore
+    }
+    
     func resetGame(){
         model.resetGame()
+        turn = 0
+    }
+    
+    func takeCurrentScore(){
+        model.takeCurrentScore()
         turn = 0
     }
 }

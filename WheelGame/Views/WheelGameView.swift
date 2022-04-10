@@ -48,16 +48,20 @@ struct WheelGameView: View {
             ZStack(alignment: .bottom){
                 VStack{
                     HStack{
-                        NumberIncreaseText(prependText: "Score: " ,number: Double(score))
-                            .font(Font.title2)
+                        VStack(alignment: .leading){
+                            NumberIncreaseText(prependText: "Score: " ,number: Double(score))
+                            Text("High Score: \(game.highScore)")
+                        }.font(Font.title2)
                         Spacer()
                     }.padding(.leading)
+                    
                     Spacer()
-                    if(messageToUser.count > 0){
-                        Text(messageToUser)
-                    }
+                    Text(messageToUser)
                     NumberIncreaseText(number: angle, processingFunction: computeRemaining)
                         .font(.system(size: 104, weight: .bold, design: .default))
+                    Button("Take Current Score"){
+                        game.takeCurrentScore()
+                    }
                     Spacer(minLength: Constants.minTextWheelSpacing)
                 }.frame(width: geometry.size.width)
                 
@@ -90,22 +94,28 @@ struct WheelGameView: View {
                 
                 
             }.onChange(of: game.turn, perform: { _ in
-                let chosenNumber = game.currentNumber
-                let (finalAngle, wheelSpinning) = calculateSpinAgle(selectedNumber: chosenNumber)
-                
-                withAnimation(Animation.easeOut(duration: Constants.spinDuration)){
-                    angle = finalAngle
-                    animating = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + Constants.spinDuration) {
-                        angle = finalAngle - wheelSpinning
-                        
-                        withAnimation(Animation.easeOut(duration: Constants.scoreIncreaseDuration)){
-                            score = game.score
-                            animating = false
-                            if(game.hasLost){
-                                messageToUser = "You Lost"
+                if(game.turn != 0){
+                    let chosenNumber = game.currentNumber
+                    let (finalAngle, wheelSpinning) = calculateSpinAgle(selectedNumber: chosenNumber)
+                    
+                    withAnimation(Animation.easeOut(duration: Constants.spinDuration)){
+                        angle = finalAngle
+                        animating = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.spinDuration) {
+                            angle = finalAngle - wheelSpinning
+                            
+                            withAnimation(Animation.easeOut(duration: Constants.scoreIncreaseDuration)){
+                                score = game.score
+                                animating = false
+                                if(game.hasLost){
+                                    messageToUser = "You Lost"
+                                }
                             }
                         }
+                    }
+                } else {
+                    withAnimation{
+                        score = game.score
                     }
                 }
             })
