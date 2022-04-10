@@ -5,6 +5,7 @@ struct WheelGameView: View {
     @State var angle: Double = 0
     @State var animating = false
     @State var score: Int = 0
+    @State var messageToUser: String = ""
     
     init(game: WheelGameVM){
         self.game = game
@@ -52,6 +53,9 @@ struct WheelGameView: View {
                         Spacer()
                     }.padding(.leading)
                     Spacer()
+                    if(messageToUser.count > 0){
+                        Text(messageToUser)
+                    }
                     NumberIncreaseText(number: angle, processingFunction: computeRemaining)
                         .font(.system(size: 104, weight: .bold, design: .default))
                     Spacer(minLength: Constants.minTextWheelSpacing)
@@ -97,6 +101,9 @@ struct WheelGameView: View {
                         withAnimation(Animation.easeOut(duration: Constants.scoreIncreaseDuration)){
                             score = game.score
                             animating = false
+                            if(game.hasLost){
+                                messageToUser = "You Lost"
+                            }
                         }
                     }
                 }
@@ -121,6 +128,7 @@ struct WheelGameView: View {
     }
     
     func resetGame(){
+        messageToUser = ""
         game.resetGame()
         withAnimation(Animation.easeOut(duration: Constants.resetGameDuration)){
             angle = 0
