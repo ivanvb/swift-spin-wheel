@@ -28,6 +28,7 @@ struct WheelGameView: View {
         static let spinButtonTextOffset: CGFloat = 30
         static let bottomBarHeight: CGFloat = 100
         static let bottomBarOffset: CGFloat = 30
+        static let minTextWheelSpacing: CGFloat =  Constants.wheelSize / 2 * 1.25
     }
     
     private var wheelSegmentSize: Double {
@@ -53,7 +54,7 @@ struct WheelGameView: View {
                     Spacer()
                     NumberIncreaseText(number: angle, processingFunction: computeRemaining)
                         .font(.system(size: 104, weight: .bold, design: .default))
-                    Spacer()
+                    Spacer(minLength: Constants.minTextWheelSpacing)
                 }.frame(width: geometry.size.width)
                 
                 ZStack{
