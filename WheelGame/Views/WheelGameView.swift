@@ -4,9 +4,17 @@ struct WheelGameView: View {
     @ObservedObject var game: WheelGameVM
     @State var angle: Double = 0
     @State var animating = false
+    @State var score: Int = 0
+    
+    init(game: WheelGameVM){
+        self.game = game
+        self.score = game.score
+    }
     
     private struct Constants {
-        static let spinDuration: CGFloat = 1.5
+        static let animationDuration: CGFloat = 1.5
+        static let spinDuration: CGFloat = Constants.animationDuration * 0.8
+        static let scoreIncreaseDuration: CGFloat = Constants.animationDuration * 0.2
         static let disabledButtonOpacity: CGFloat = 0.5
         
         static let minRotationLaps: Int = 3
@@ -36,8 +44,7 @@ struct WheelGameView: View {
         GeometryReader { geometry in
             ZStack(alignment: .bottom){
                 VStack{
-                    Text("Score: \(game.score)")
-                    Text("Result: \(game.currentNumber)")
+                    NumberIncreaseText(prependText: "Score: " ,number: Double(score))
                     Text("Lost: \(game.hasLost ? "Lost" : "Not lost")")
                     NumberIncreaseText(number: angle, processingFunction: computeRemaining)
                         .font(.system(size: 104, weight: .bold, design: .default))
@@ -71,11 +78,26 @@ struct WheelGameView: View {
                     .position(x: geometry.size.width/2, y: geometry.size.height + Constants.bottomBarOffset)
                 
                 
-            }.onChange(of: game.currentNumber, perform: calculateSpinAgle)
+            }.onChange(of: game.currentNumber, perform: { chosenNumber in
+                let (finalAngle, wheelSpinning) = calculateSpinAgle(selectedNumber: chosenNumber)
+                
+                withAnimation(Animation.easeOut(duration: Constants.spinDuration)){
+                    angle = finalAngle
+                    animating = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + Constants.spinDuration) {
+                        angle = finalAngle - wheelSpinning
+                        
+                        withAnimation(Animation.easeOut(duration: Constants.scoreIncreaseDuration)){
+                            score = game.score
+                            animating = false
+                        }
+                    }
+                }
+            })
         }
     }
     
-    func calculateSpinAgle(selectedNumber: Int){
+    func calculateSpinAgle(selectedNumber: Int) -> (Double, Double){
         let sliceSize: Double = 360 / Double(game.totalNumbers)
         let centerAngle: Double = (sliceSize * Double(selectedNumber - 1)).truncatingRemainder(dividingBy: 360);
         
@@ -88,18 +110,12 @@ struct WheelGameView: View {
         let wheelSpinning = 360 * Double(totalSpins)
         let finalAngle: Double = wheelSpinning + offset
         
-        withAnimation(Animation.easeOut(duration: Constants.spinDuration)){
-            angle = finalAngle
-            animating = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + Constants.spinDuration) {
-                animating = false
-                angle = finalAngle - wheelSpinning
-            }
-        }
+        return (finalAngle, wheelSpinning)
     }
 }
 
 struct NumberIncreaseText: View, Animatable{
+    var prependText: String? = ""
     var number: Double
     var processingFunction: ((Int) -> Int)?
     
@@ -116,7 +132,7 @@ struct NumberIncreaseText: View, Animatable{
         }
     }
     var body: some View {
-        Text("\(calculatedNumber)")
+        Text("\(prependText!)\(calculatedNumber)")
     }
 }
 
