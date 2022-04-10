@@ -8,12 +8,12 @@ struct WheelGame{
             }
         }
     }
-    private var totalNumbers: Int
+    private (set) var totalNumbers: Int
     private var losingNumbers: Array<Int>
     private (set) var hasLost: Bool = false
     
     init(totalNumbers: Int, losingNumbers: Array<Int>){
-        self.totalNumbers = min(6, totalNumbers)
+        self.totalNumbers = max(6, totalNumbers)
         self.losingNumbers = losingNumbers.count > 0 ? losingNumbers : [1]
     }
     
