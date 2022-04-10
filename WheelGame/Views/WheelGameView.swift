@@ -18,8 +18,8 @@ struct WheelGameView: View {
         static let disabledButtonOpacity: CGFloat = 0.5
         static let resetGameDuration: CGFloat = 0.25
         
-        static let minRotationLaps: Int = 3
-        static let maxRotationLaps: Int = 8
+        static let minRotationLaps: Int = 2
+        static let maxRotationLaps: Int = 4
         static let wheelOffsetPercentage: Double = 5 / 100
         
         static let wheelSize: CGFloat = 250
