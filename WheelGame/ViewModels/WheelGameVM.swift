@@ -2,7 +2,7 @@ import Foundation
 
 class WheelGameVM: ObservableObject{
     @Published private var model: WheelGame
-    private (set) var currentNumber: Int = -1
+    @Published private (set) var currentNumber: Int = -1
     
     init(){
         model = WheelGame(totalNumbers: 8, losingNumbers: [1])
@@ -20,5 +20,9 @@ class WheelGameVM: ObservableObject{
     
     var score: Int {
         return model.score
+    }
+    
+    var totalNumbers: Int {
+        return model.totalNumbers
     }
 }
