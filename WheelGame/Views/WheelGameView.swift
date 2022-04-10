@@ -59,9 +59,10 @@ struct WheelGameView: View {
                     Text(messageToUser)
                     NumberIncreaseText(number: angle, processingFunction: computeRemaining)
                         .font(.system(size: 104, weight: .bold, design: .default))
-                    Button("Take Current Score"){
+                    Button("Finish"){
                         game.takeCurrentScore()
-                    }
+                        messageToUser = "You scored"
+                    }.disabled(score == 0)
                     Spacer(minLength: Constants.minTextWheelSpacing)
                 }.frame(width: geometry.size.width)
                 
