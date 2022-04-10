@@ -89,7 +89,8 @@ struct WheelGameView: View {
                     .position(x: geometry.size.width/2, y: geometry.size.height + Constants.bottomBarOffset)
                 
                 
-            }.onChange(of: game.currentNumber, perform: { chosenNumber in
+            }.onChange(of: game.turn, perform: { _ in
+                let chosenNumber = game.currentNumber
                 let (finalAngle, wheelSpinning) = calculateSpinAgle(selectedNumber: chosenNumber)
                 
                 withAnimation(Animation.easeOut(duration: Constants.spinDuration)){
