@@ -25,4 +25,8 @@ class WheelGameVM: ObservableObject{
     var totalNumbers: Int {
         return model.totalNumbers
     }
+    
+    func resetGame(){
+        model.resetGame()
+    }
 }

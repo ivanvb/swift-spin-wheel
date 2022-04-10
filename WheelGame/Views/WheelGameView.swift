@@ -16,6 +16,7 @@ struct WheelGameView: View {
         static let spinDuration: CGFloat = Constants.animationDuration * 0.8
         static let scoreIncreaseDuration: CGFloat = Constants.animationDuration * 0.2
         static let disabledButtonOpacity: CGFloat = 0.5
+        static let resetGameDuration: CGFloat = 0.25
         
         static let minRotationLaps: Int = 3
         static let maxRotationLaps: Int = 8
@@ -58,14 +59,15 @@ struct WheelGameView: View {
                 ZStack{
                     GameWheel(numbers: game.totalNumbers)
                         .rotationEffect(Angle.degrees(angle * -1))
+                    
                     Button(action: {
-                        game.spinTheWheel()
+                        game.hasLost ? resetGame() : game.spinTheWheel()
                     }){
                         ZStack{
                             Circle()
                                 .fill(.red)
                                 .frame(width: Constants.spinButtonSize, height: Constants.spinButtonSize)
-                            Text("Spin!")
+                            Text(game.hasLost ? "Reset" : "Spin!")
                                 .padding(.bottom, Constants.spinButtonTextOffset)
                                 .foregroundColor(.white)
                             
@@ -115,6 +117,13 @@ struct WheelGameView: View {
         let finalAngle: Double = wheelSpinning + offset
         
         return (finalAngle, wheelSpinning)
+    }
+    
+    func resetGame(){
+        game.resetGame()
+        withAnimation(Animation.easeOut(duration: Constants.resetGameDuration)){
+            angle = 0
+        }
     }
 }
 

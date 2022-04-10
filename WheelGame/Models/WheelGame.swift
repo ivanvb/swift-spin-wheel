@@ -30,4 +30,9 @@ struct WheelGame{
             score += result
         }
     }
+    
+    mutating func resetGame(){
+        score = 0
+        hasLost = false
+    }
 }
