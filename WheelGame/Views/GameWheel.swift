@@ -6,7 +6,7 @@ struct GameWheel: View {
     var body: some View {
         ZStack{
             Circle()
-                .stroke(.purple, lineWidth: 5)
+                .stroke(.blue, lineWidth: 5)
             ForEach(1...numbers, id: \.self) { number in
                 CircleLabel(label: String(number), position: number - 1, total: numbers)
             }
@@ -30,7 +30,7 @@ struct GameWheel: View {
                 endAngle: Angle.degrees(Double(position + 1) * sliceSize),
                 clockwise: true
             )
-            .stroke(.purple, lineWidth: 2)
+            .stroke(.blue, lineWidth: 2)
             .rotationEffect(Angle.degrees((sliceSize / 2 + 90) * -1))
         }
     }

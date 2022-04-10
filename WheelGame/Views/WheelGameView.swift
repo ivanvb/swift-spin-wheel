@@ -75,7 +75,7 @@ struct WheelGameView: View {
                     }){
                         ZStack{
                             Circle()
-                                .fill(.red)
+                                .fill(.blue)
                                 .frame(width: Constants.spinButtonSize, height: Constants.spinButtonSize)
                             Text(game.hasLost ? "Reset" : "Spin!")
                                 .padding(.bottom, Constants.spinButtonTextOffset)
