@@ -29,7 +29,7 @@ struct WheelGameView: View {
         static let spinButtonTextOffset: CGFloat = 30
         static let bottomBarHeight: CGFloat = 100
         static let bottomBarOffset: CGFloat = 30
-        static let minTextWheelSpacing: CGFloat =  Constants.wheelSize / 2 * 1.25
+        static let minTextWheelSpacing: CGFloat =  Constants.wheelSize / 2 * 1.35
     }
     
     private var wheelSegmentSize: Double {
